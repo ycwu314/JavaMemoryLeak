@@ -13,8 +13,8 @@ public class TestAutoboxingLeak {
      */
     @Test
     public void testAutoboxingWithoutGC() throws InterruptedException {
+        Long sum = 0L;
         for (int i = 0; i < 500000; i++) {
-            Long sum = 0L;
             sum += i;
         }
 
@@ -28,9 +28,8 @@ public class TestAutoboxingLeak {
      */
     @Test
     public void testAutoboxingWithGC() throws InterruptedException {
-
+        Long sum = 0L;
         for (int i = 0; i < 500000; i++) {
-            Long sum = 0L;
             sum += i;
         }
 
@@ -46,8 +45,8 @@ public class TestAutoboxingLeak {
      */
     @Test
     public void testPrimitive() throws InterruptedException {
+        long sum = 0L;
         for (int i = 0; i < 500000; i++) {
-            long sum = 0L;
             sum += i;
         }
 
