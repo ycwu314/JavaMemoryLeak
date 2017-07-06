@@ -1,4 +1,5 @@
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,7 @@ public class TestKeyLeakOfHashMap {
     }
 
     @AllArgsConstructor
+    @Data
     static class ItemA {
         private int a;
     }
@@ -46,6 +48,7 @@ public class TestKeyLeakOfHashMap {
 
     @AllArgsConstructor
     @EqualsAndHashCode
+    @Data
     static class ItemB {
         private int b;
     }
@@ -73,6 +76,21 @@ public class TestKeyLeakOfHashMap {
         ItemA a = new ItemA(1);
         map.put(a, 444);
         Assert.assertEquals(1, map.size());
+    }
+
+    ////////////////////////
+
+    /**
+     * although it is the same ItemB instance, but since key value is changed, it is TWO different key to Map !!!
+     */
+    @Test
+    public void testMutableKeyLeak() {
+        Map<ItemB, Integer> map = new HashMap<>();
+        ItemB b = new ItemB(1);
+        map.put(b, 11);
+        b.setB(2);
+        map.put(b, 22);
+        Assert.assertEquals(2, map.size());
     }
 
 }
